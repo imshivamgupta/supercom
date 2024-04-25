@@ -18,13 +18,15 @@ import {
 
 const logo = (
     <div>
-      <Link to="/">
+      {/* <Link to="/"> */}
         <h2>
-          e<span>Shop</span>.
+          Supercom
         </h2>
-      </Link>
+      {/* </Link> */}
     </div>
-  );
+);
+
+
 
 const Header = () => {
 
@@ -43,7 +45,23 @@ const Header = () => {
 
   
   return (
-    <div className='header-wrapper'>Header</div>
+    <div className='header-wrapper'>
+       {logo}
+
+       <div className="menu">
+        <ul>
+            <li>Home</li>
+            <li>Contact</li>
+            <li>Products</li>
+        </ul>
+       </div>
+
+       <div className="action">
+        <ul>
+            <li>Login</li>
+        </ul>
+       </div>
+    </div>
   )
 }
 

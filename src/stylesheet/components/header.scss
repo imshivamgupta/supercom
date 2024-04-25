@@ -1,3 +1,30 @@
 .header-wrapper{
-    font-size: 7em;
+    border: 1px solid black;
+    @include flex-center;
+    justify-content: space-between;
+    padding: 0 1rem;
+
+    & .menu{
+        @include flex-center;
+        ul{
+            all: unset;
+            display: flex;
+            list-style-type: none;
+            li{
+                &:not(:last-child){
+                    margin-right: 1rem;
+                }
+            }
+        }
+
+    }
+
+    & .action{
+        @include flex-center;
+        ul{
+            all: unset;
+            @include flex-center;
+            list-style-type: none;
+        }
+    }
 }
