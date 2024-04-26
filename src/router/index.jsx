@@ -1,5 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
-import Header from '@/content/components/Header';
+import Homepage from '@/content/layouts/Homepage';
+import Login from '@/content/pages/auth/Login'
+import Register from '@/content/pages/auth/Register'
 
 // const router = createBrowserRouter(
 //   createRoutesFromElements(
@@ -33,6 +35,16 @@ import Header from '@/content/components/Header';
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Header />,
+    element: <Homepage />,
+    children:[
+      {
+        path: 'login',
+        element: <Login/>
+      },
+      {
+        path: 'register',
+        element: <Register/>
+      }
+    ]
   }
 ]);

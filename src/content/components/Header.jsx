@@ -18,11 +18,11 @@ import {
 
 const logo = (
     <div>
-      {/* <Link to="/"> */}
+      <Link to="/">
         <h2>
           Supercom
         </h2>
-      {/* </Link> */}
+      </Link>
     </div>
 );
 
@@ -58,7 +58,7 @@ const Header = () => {
 
        <div className="action">
         <ul>
-            <li>Login</li>
+            <li><Link to="/login">Login</Link></li>
         </ul>
        </div>
     </div>
