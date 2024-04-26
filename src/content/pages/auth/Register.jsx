@@ -39,7 +39,7 @@ const Register = () => {
   
     return (
       <>
-        {isLoading && (<div>Loading</div>)}
+        {isLoading && (<p>Loading</p>)}
         <section className={`container `}>
           <div>
             <div>

@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 .header-wrapper{
-    border: 1px solid black;
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 0 5px 10px 20px #f7f7f7;
+    border: 1px solid #efefef;
+    border-radius: 4px;
     @include flex-center;
     justify-content: space-between;
     padding: 0 1rem;
@@ -8,7 +13,7 @@
         @include flex-center;
         ul{
             all: unset;
-            display: flex;
+            @include flex-center;
             list-style-type: none;
             li{
                 &:not(:last-child){
@@ -25,6 +30,11 @@
             all: unset;
             @include flex-center;
             list-style-type: none;
+            li{
+                &:not(:last-child){
+                    margin-right: 1rem;
+                }
+            }
         }
     }
 }

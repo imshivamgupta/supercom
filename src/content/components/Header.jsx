@@ -14,7 +14,8 @@ import {
   CALCULATE_TOTAL_QUANTITY,
   selectCartTotalQuantity,
 } from "@/redux/slice/cartSlice";
-
+import {AdminOnlyLink} from '@/content/components/AdminOnlyRoutes'
+import ShowOnLogin, {ShowOnLogout} from "@/content/components/HiddenLinks";
 
 const logo = (
     <div>
@@ -39,10 +40,50 @@ const Header = () => {
     dispatch(CALCULATE_TOTAL_QUANTITY());
   }, []);
 
-//   const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // console.log(user);
+        if (user.displayName == null) {
+          const u1 = user.email.slice(0, -10);
+          const uName = u1.charAt(0).toUpperCase() + u1.slice(1);
+          setdisplayName(uName);
+        } else {
+          setdisplayName(user.displayName);
+        }
+
+        dispatch(
+          SET_ACTIVE_USER({
+            email: user.email,
+            userName: user.displayName ? user.displayName : displayName,
+            userID: user.uid,
+          })
+        );
+      } else {
+        setdisplayName("");
+        dispatch(REMOVE_ACTIVE_USER());
+      }
+    });
+  })
+
+  const logoutUser = () => {
+    signOut(auth)
+      .then(() => {
+        toast.success("Logout successfully.");
+        navigate("/");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
 
   const dispatch = useDispatch();
 
+  const activeLink = ({isActive}) =>{
+    return isActive ? 'link-active' : ''
+  }
   
   return (
     <div className='header-wrapper'>
@@ -53,12 +94,51 @@ const Header = () => {
             <li>Home</li>
             <li>Contact</li>
             <li>Products</li>
+            <li>
+              <AdminOnlyLink>
+                <Link to="/admin/home">
+                  <button className="--btn --btn-primary">Admin</button>
+                </Link>
+              </AdminOnlyLink>
+            </li>
         </ul>
        </div>
 
        <div className="action">
         <ul>
-            <li><Link to="/login">Login</Link></li>
+            <li>
+            <ShowOnLogout>
+              <NavLink to="/login" className={activeLink}>
+                Login
+              </NavLink>
+            </ShowOnLogout>
+            </li>
+            
+            <li>
+            <ShowOnLogin>
+                  <a href="#home" style={{ color: "#ff7722" }}>
+                    <FaUserCircle size={16} />
+                    Hi, {displayName}
+                  </a>
+                </ShowOnLogin>
+
+            </li>
+            <li>
+
+                <ShowOnLogin>
+                  <NavLink to="/order-history" className={activeLink}>
+                    My Orders
+                  </NavLink>
+                </ShowOnLogin>
+
+            </li>
+            <li>
+                <ShowOnLogin>
+                  <NavLink to="/" onClick={logoutUser}>
+                    Logout
+                  </NavLink>
+                </ShowOnLogin>
+            </li>
         </ul>
        </div>
     </div>
