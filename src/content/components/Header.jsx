@@ -16,6 +16,7 @@ import {
 } from "@/redux/slice/cartSlice";
 import {AdminOnlyLink} from '@/content/components/AdminOnlyRoutes'
 import ShowOnLogin, {ShowOnLogout} from "@/content/components/HiddenLinks";
+import { selectIsLoggedIn } from "/src/redux/slice/authSlice.js";
 
 const logo = (
     <div>
@@ -35,6 +36,7 @@ const Header = () => {
   const [displayName, setdisplayName] = useState("");
   const [scrollPage, setScrollPage] = useState(false);
   const cartTotalQuantity = useSelector(selectCartTotalQuantity);
+  const isLogged = useSelector(selectIsLoggedIn);
 
   useEffect(() => {
     dispatch(CALCULATE_TOTAL_QUANTITY());
@@ -113,7 +115,7 @@ const Header = () => {
               </NavLink>
             </ShowOnLogout>
             </li>
-            
+            { isLogged &&
             <li>
             <ShowOnLogin>
                   <a href="#home" style={{ color: "#ff7722" }}>
@@ -121,17 +123,16 @@ const Header = () => {
                     Hi, {displayName}
                   </a>
                 </ShowOnLogin>
-
             </li>
+            &&
             <li>
-
                 <ShowOnLogin>
                   <NavLink to="/order-history" className={activeLink}>
                     My Orders
                   </NavLink>
                 </ShowOnLogin>
-
             </li>
+            &&
             <li>
                 <ShowOnLogin>
                   <NavLink to="/" onClick={logoutUser}>
@@ -139,6 +140,7 @@ const Header = () => {
                   </NavLink>
                 </ShowOnLogin>
             </li>
+          }
         </ul>
        </div>
     </div>
